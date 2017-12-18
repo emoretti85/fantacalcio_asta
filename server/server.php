@@ -37,13 +37,13 @@ class Server {
 							$checkCnt++;
 					}
 					if($checkCnt < $checkCnt_accepted){
-						throw new Exception("La richiesta richiede pi� parametri. \nCod_Errore:Srv_004");
+						throw new Exception("La richiesta richiede più parametri. \nCod_Errore:Srv_004");
 					}
 				}else{
-					throw new Exception("La richiesta non pu� essere soddisfatta. \nCod_Errore:Srv_003");
+					throw new Exception("La richiesta non può essere soddisfatta. \nCod_Errore:Srv_003");
 				}
 			}else{
-				throw new Exception("La richiesta non pu� essere soddisfatta. \nCod_Errore:Srv_002");
+				throw new Exception("La richiesta non può essere soddisfatta. \nCod_Errore:Srv_002");
 			}
 		}else{
 			throw new Exception("La richiesta non risulta formattata correttamente. \nCod_Errore:Srv_001");
