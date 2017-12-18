@@ -1,16 +1,17 @@
 <?php
 class Server {
-	
+
+	private $test;
 	private $action_list = [
 		"offerta",
 		"lancio_giocatore"
 	];
 	private $action_args = [
 		"offerta"=>["cifra_offerta"],
-		"lancio_giocatore"=>["cod_giocatore","offerta_iniziale"]	
+		"lancio_giocatore"=>["cod_giocatore","offerta_iniziale"]
 	];
 	private $request;
-	
+
 	function __construct($request) {
 		$this->request = $request;
 		$this->checkRequest ();
@@ -36,13 +37,13 @@ class Server {
 							$checkCnt++;
 					}
 					if($checkCnt < $checkCnt_accepted){
-						throw new Exception("La richiesta richiede più parametri. \nCod_Errore:Srv_004");
-					}					
+						throw new Exception("La richiesta richiede piï¿½ parametri. \nCod_Errore:Srv_004");
+					}
 				}else{
-					throw new Exception("La richiesta non può essere soddisfatta. \nCod_Errore:Srv_003");
-				}				
+					throw new Exception("La richiesta non puï¿½ essere soddisfatta. \nCod_Errore:Srv_003");
+				}
 			}else{
-				throw new Exception("La richiesta non può essere soddisfatta. \nCod_Errore:Srv_002");
+				throw new Exception("La richiesta non puï¿½ essere soddisfatta. \nCod_Errore:Srv_002");
 			}
 		}else{
 			throw new Exception("La richiesta non risulta formattata correttamente. \nCod_Errore:Srv_001");
