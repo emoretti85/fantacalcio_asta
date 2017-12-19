@@ -49,6 +49,7 @@ if ($login->isUserLoggedIn() == true) {
             <nav id="sidebar">
                 <div class="sidebar-header">
                     <h3>Fantacalcio<br>Asta Online</h3>
+                    <h5 id="sidebar-header-h5"></h5>
                 </div>
 
                 <ul class="list-unstyled components">
@@ -59,6 +60,10 @@ if ($login->isUserLoggedIn() == true) {
                     </li>
                     <li id="accediStanza">
                         <a data-toggle="modal" data-target="#accediStanzaModal" href="#">Accedi ad una stanza</a>
+                    </li>
+                    
+                    <li id="iniziaAsta">
+                        <a data-toggle="modal" data-target="#iniziaAstaModal" href="#">Inizia Asta</a>
                     </li>
                     
                     <li>
@@ -185,6 +190,35 @@ if ($login->isUserLoggedIn() == true) {
 		      
 		    </div>
 		  </div>
+  
+  		  <!-- Modal inizia asta-->
+		  <div class="modal fade" id="iniziaAstaModal" role="dialog">
+		    <div class="modal-dialog">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Iniziare l'asta?</h4>
+		        </div>
+		        <div class="modal-body">
+		         <div id="messaggio_AccediStanza"></div>
+		           <h3>Tutti i partecipanti sono entrati nella stanza?! O.o</h3><br/>
+		           <form id="iniziaAstaForm" role="form">
+		            <button  type="submit" class="btn btn-default btn-success btn-left"><i class="fa fa-plus" aria-hidden="true"></i></span>Siamo tutti, Inizia</button>
+		            <button class="btn btn-default btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Aspetta un attimo, c'&egrave; chi deve andare in bagno</button>
+		          </form>
+		        </div>
+		        <div class="modal-footer">
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+  
+  
+  
+  
+  
   
         <!-- jQuery CDN -->
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>

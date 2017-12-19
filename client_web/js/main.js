@@ -1,52 +1,53 @@
 $( document ).ready(function() {
    
-	var refresh_id = setInterval(mycode, 2000);
+	var refresh_id = null;
+	var refresh_millisec = 5000;
+	var user_id = null;
+	var stanza_id= null;
 	
-	function mycode() {
+
+	$("#panel_user_connected").hide();
+	$("#iniziaAsta").hide();
+	
+	
+	function refreshPageData() {
+		console.log("Tento un refresh");
 		$.ajax({
 			  type: 'POST',
 			  dataType: "json",
-			  url: 'core/accediStanza.php',
-			  data: { idStanza: $("#idStanza").val(), idAdmin: $("#idUtente").val() },
+			  url: 'core/refresh_ajax.php',
+			  data: {idStanza: stanza_id, idAdmin: user_id },
 			  beforeSend:function(){
-			    // this is where we append a loading image
-			    //$('#ajax-panel-creaStanza').html('<div class="loading"><img src="/images/loading.gif" alt="Loading..." /></div>');
 			  },
 			  success:function(data){
 				 
-					  $("#accediStanzaModal").modal('toggle');
 					  $("#creaStanza").hide();
 					  $("#accediStanza").hide();
-					  $(".sidebar-header").append("<h5>Connessi alla stanza:"+ data["nome_stanza"] +"</h5>");
+					  $("#iniziaAsta").show();
+					  $("#sidebar-header-h5").html("Connesso alla stanza: "+ data["nome_stanza"] +"<br/>Id stanza: "+stanza_id);
 					  
+					  $("#panel_user_connected_body").html("");
 					  $.each(data["utenti_connessi"], function() {
 					        $.each(this, function(k,v) {
-					            //alert(k + ' ' + v);
 					            $("#panel_user_connected_body").append("<i class='fa fa-user' aria-hidden='true'></i> "+v+"<br/>");
 					        });
 					    });
 					  $("#panel_user_connected").show();
-				  
-			    // successful request; do something with the data
-			    //$('#ajax-panel').empty();
-			    //$(data).find('item').each(function(i){
-			    //  $('#ajax-panel').append('<h4>' + $(this).find('title').text() + '</h4><p>' + $(this).find('link').text() + '</p>');
-			    //});
+					  
+					  console.log("refresh");
+
 			  },
 			  error:function(){
-				  $("#messaggio_creaStanza").html("<p>"+data+"</p>");
-			    // failed request; give feedback to user
-			    //$('#ajax-panel').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
-				
+				  console.log("abort refresh");
+				  abortTimer();
 			  }
 			});
 	}
 	
-	function abortTimer() { // to be called when you want to stop the timer
-		  clearInterval(tid);
+	function abortTimer() {
+		  clearInterval(refresh_id);
 	}
 		
-	$("#panel_user_connected").hide();
 	
 	$("#accediStanzaForm").submit(function(e){
 		$.ajax({
@@ -55,35 +56,28 @@ $( document ).ready(function() {
 			  url: 'core/accediStanza.php',
 			  data: { idStanza: $("#idStanza").val(), idAdmin: $("#idUtente").val() },
 			  beforeSend:function(){
-			    // this is where we append a loading image
-			    //$('#ajax-panel-creaStanza').html('<div class="loading"><img src="/images/loading.gif" alt="Loading..." /></div>');
 			  },
 			  success:function(data){
 				 
 					  $("#accediStanzaModal").modal('toggle');
 					  $("#creaStanza").hide();
 					  $("#accediStanza").hide();
-					  $(".sidebar-header").append("<h5>Connessi alla stanza:"+ data["nome_stanza"] +"</h5>");
+					  $("#iniziaAsta").show();
+					  $("#sidebar-header-h5").append("Connesso alla stanza:"+ data["nome_stanza"] +"<br/>Id stanza: "+$("#idStanza").val());
 					  
 					  $.each(data["utenti_connessi"], function() {
 					        $.each(this, function(k,v) {
-					            //alert(k + ' ' + v);
 					            $("#panel_user_connected_body").append("<i class='fa fa-user' aria-hidden='true'></i> "+v+"<br/>");
 					        });
 					    });
 					  $("#panel_user_connected").show();
-				  
-			    // successful request; do something with the data
-			    //$('#ajax-panel').empty();
-			    //$(data).find('item').each(function(i){
-			    //  $('#ajax-panel').append('<h4>' + $(this).find('title').text() + '</h4><p>' + $(this).find('link').text() + '</p>');
-			    //});
+					  
+					  user_id = $("#idUtente").val();
+					  stanza_id = $("#idStanza").val();
+					  refresh_id = setInterval(refreshPageData, refresh_millisec);
 			  },
 			  error:function(){
-				  $("#messaggio_creaStanza").html("<p>"+data+"</p>");
-			    // failed request; give feedback to user
-			    //$('#ajax-panel').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
-				
+				  $("#messaggio_AccediStanza").html("<p style='text-align:center;color:red;'>Bevi de meno e metti l'id giusto!</p>");				
 			  }
 			});
 		 e.preventDefault();
@@ -93,34 +87,39 @@ $( document ).ready(function() {
 		
 		$.ajax({
 			  type: 'POST',
+			  dataType: "json",
 			  url: 'core/creaStanza.php',
 			  data: { nomeStanza: $("#nomeStanza").val(), idAdmin: $("#idUtente").val() },
 			  beforeSend:function(){
-			    // this is where we append a loading image
-			    //$('#ajax-panel-creaStanza').html('<div class="loading"><img src="/images/loading.gif" alt="Loading..." /></div>');
 			  },
 			  success:function(data){
-				  if(data=='1'){
-					  $("#creaStanzaModal").modal('toggle');
-					  $("#creaStanza").hide();
-					  $("#accediStanza").hide();
-					  $(".sidebar-header").append("<h5>Connessi alla stanza:"+ $("#nomeStanza").val() +"</h5>");
+				  
+				  $("#creaStanzaModal").modal('toggle');
+				  $("#creaStanza").hide();
+				  $("#accediStanza").hide();
+				  $("#iniziaAsta").show();
 					  
-				  }
-			    // successful request; do something with the data
-			    //$('#ajax-panel').empty();
-			    //$(data).find('item').each(function(i){
-			    //  $('#ajax-panel').append('<h4>' + $(this).find('title').text() + '</h4><p>' + $(this).find('link').text() + '</p>');
-			    //});
+				  $.each(data["utenti_connessi"], function() {
+				        $.each(this, function(k,v) {
+				            $("#panel_user_connected_body").append("<i class='fa fa-user' aria-hidden='true'></i> "+v+"<br/>");
+				        });
+				    });
+				  $("#panel_user_connected").show();
+				  
+				  user_id = $("#idUtente").val();
+				  stanza_id = data["id_stanza"];
+				  $("#sidebar-header-h5").append("Connessi alla stanza:"+ $("#nomeStanza").val() +"<br/>Id stanza: "+stanza_id);
+				  refresh_id = setInterval(refreshPageData, refresh_millisec);
 			  },
 			  error:function(){
 				  $("#messaggio_creaStanza").html("<p>"+data+"</p>");
-			    // failed request; give feedback to user
-			    //$('#ajax-panel').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
-				
 			  }
 			});
 		 e.preventDefault();
+	});
+	
+	$("#iniziaAstaForm").submit(function(e){
+		
 	});
 	 
 });
