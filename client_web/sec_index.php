@@ -113,15 +113,9 @@ if ($login->isUserLoggedIn() == true) {
                
                
      
-                <div class="panel panel-info" style="width: 33%;">
+                <div id="panel_user_connected" class="panel panel-info" style="width: 33%;">
 			      <div class="panel-heading">Utenti Connessi all'asta</div>
-			      <div class="panel-body">
-			      	<i class="fa fa-user" aria-hidden="true"></i>  <?= $user['username']?>
-			      	<?php 
-			      		foreach ($dati_asta['utenti_connessi'] as $utente){
-			      			echo '<i class="fa fa-user-o" aria-hidden="true"></i>  '.$utente['username'];
-			      		}
-			      	?>
+			      <div id="panel_user_connected_body" class="panel-body">
 			      </div>
 			    </div>
                  
@@ -177,7 +171,7 @@ if ($login->isUserLoggedIn() == true) {
 		         <div id="messaggio_AccediStanza"></div>
 		           <form id="accediStanzaForm" role="form">
 		            <div class="form-group">
-		              <label for="nomeStanza"></span> Id Stanza</label>
+		              <label for="idStanza"></span> Id Stanza</label>
 		              <input type="text" class="form-control" id="idStanza" placeholder="Inserisci id stanza">
 		              <input type="hidden" id="idUtente" value="<?= $user['id_utente'] ?>"/>
 		            </div>
