@@ -42,10 +42,16 @@ if($id && $id_admin){
         
         $out2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        $return = [
-            "nome_stanza"=>$out[0]['nome_stanza'],
-            "utenti_connessi"=>$out2
-        ]; 
+        if(isset($out[0]['nome_stanza'])){
+            $return = [
+                "nome_stanza"=>$out[0]['nome_stanza'],
+                "utenti_connessi"=>$out2
+            ]; 
+        }else{
+            die();
+        }
+        
+        
         echo json_encode($return);
          
     } catch (PDOException $e) {

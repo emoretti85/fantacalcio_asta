@@ -25,8 +25,19 @@ if($nome && $id_admin){
 	    		$id_admin
 	    ));
 	    
+	    $stmt = $conn->prepare("SELECT u.username FROM room r, users u  WHERE r.id=? AND r.id_utente = u.id");
+	    $stmt->execute(array(
+	        $id_stanza
+	    ));
 	    
-	    echo "1";
+	    $out2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	    
+	    $return = [
+	        "id_stanza"=>$id_stanza,
+	        "utenti_connessi"=>$out2
+	    ];
+	    echo json_encode($return);
+	    
 	    
     } catch (PDOException $e) {
     	echo "Stanza non creata: " . $e->getMessage();
