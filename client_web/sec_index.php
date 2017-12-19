@@ -174,10 +174,18 @@ if ($login->isUserLoggedIn() == true) {
 		          <h4 class="modal-title">Accedi ad una stanza</h4>
 		        </div>
 		        <div class="modal-body">
-		          <p>id stanza</p>
+		         <div id="messaggio_AccediStanza"></div>
+		           <form id="accediStanzaForm" role="form">
+		            <div class="form-group">
+		              <label for="nomeStanza"></span> Id Stanza</label>
+		              <input type="text" class="form-control" id="idStanza" placeholder="Inserisci id stanza">
+		              <input type="hidden" id="idUtente" value="<?= $user['id_utente'] ?>"/>
+		            </div>
+		            <button  type="submit" class="btn btn-default btn-success btn-block"><i class="fa fa-plus" aria-hidden="true"></i></span> Accedi</button>
+		          </form>
 		        </div>
 		        <div class="modal-footer">
-		          <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+		          <button type="submit" class="btn btn-default btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Chiudi</button>
 		        </div>
 		      </div>
 		      
