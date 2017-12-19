@@ -6,8 +6,8 @@ $( document ).ready(function() {
 		$.ajax({
 			  type: 'POST',
 			  dataType: "json",
-			  url: 'core/accediStanza.php',
-			  data: { idStanza: $("#idStanza").val(), idAdmin: $("#idUtente").val() },
+			  url: 'core/Stanza.php',
+			  data: { action: "accediStanza", idStanza: $("#idStanza").val(), idAdmin: $("#idUtente").val() },
 			  beforeSend:function(){
 			  },
 			  success:function(data){
@@ -41,8 +41,8 @@ $( document ).ready(function() {
 		$.ajax({
 			  type: 'POST',
 			  dataType: "json",
-			  url: 'core/creaStanza.php',
-			  data: { nomeStanza: $("#nomeStanza").val(), idAdmin: $("#idUtente").val() },
+			  url: 'core/Stanza.php',
+			  data: { action: "creaStanza", nomeStanza: $("#nomeStanza").val(), idAdmin: $("#idUtente").val() },
 			  beforeSend:function(){
 			  },
 			  success:function(data){
@@ -65,7 +65,7 @@ $( document ).ready(function() {
 				  refresh_id = setInterval(refreshPageData, refresh_millisec);
 			  },
 			  error:function(){
-				  $("#messaggio_creaStanza").html("<p>"+data+"</p>");
+				  $("#messaggio_creaStanza").html("<p style='text-align:center;color:red;'>Oppss qualtorna non cosa!</p>");
 			  }
 			});
 		 e.preventDefault();
